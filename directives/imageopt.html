@@ -14,6 +14,8 @@
             <label class="labelAlign" for="whiteSlider">Detail</label>
         </div>
         <div class="inner-control">
+            <button id="saveImageButton" class="labelAlign imageOptimizationInputButton" for="imageInput"
+                    ng-click="createSaveImage()">Save Image</button>
             <input id="imageInputMasterButton" type="file" accept="image/*" class="imageOptimizationHideInputButton imageOptimizationInputButton"/>
             <input class="inputAlign" type="checkbox" id="bwCheck" ng-model="bwm" ng-change="redraw()"
                    ng-disabled="optm"/>

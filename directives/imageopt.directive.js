@@ -2,7 +2,7 @@ angular.module("imageOptimizer", [])
     .directive("imageAreaDir", function() {
         return {
             templateUrl: '/image-optimizer/directives/imageopt.html',
-            link: function(scope, element, attrs) {
+            link: function(scope, element) {
                 var imageElem = element[0].getElementsByClassName('imageOptimizationImageArea')[0];
                 scope.canvas = document.createElement("canvas");
                 scope.canvas.style.display = 'block';
@@ -152,10 +152,7 @@ angular.module("imageOptimizer", [])
             $scope.black = 0;
         };
 
-        $scope.adjustImage = function (imageObj) {
-            var context = $scope.canvas.getContext('2d');
-            imageOptimizerService.flipCanvas(imgObj, $scope.canvas, $scope.vFlipM, $scope.hFlipM);
-            var imageData = context.getImageData(0, 0, $scope.canvas.width, $scope.canvas.height);
+        $scope.adjustImage = function (imageObj, imageData, context) {
             var whitePoint = _.parseInt($scope.white);
 
             if ($scope.optm === true) {
@@ -167,6 +164,30 @@ angular.module("imageOptimizer", [])
             this.drawHistogram(imageData.data);
             // overwrite original image
             context.putImageData(imageData, 0, 0);
+        };
+
+        $scope.createDisplayImage = function (imageObj) {
+            var context = $scope.canvas.getContext('2d');
+            imageOptimizerService.flipCanvas(imageObj, $scope.canvas, $scope.vFlipM, $scope.hFlipM);
+            var imageData = context.getImageData(0, 0, $scope.canvas.width, $scope.canvas.height);
+
+            $scope.adjustImage(imageObj, imageData, context);
+        };
+
+        $scope.createSaveImage = function () {
+            var canvas = document.createElement("canvas");
+            canvas.width = imgObj.width;
+            canvas.height = imgObj.height;
+            canvas.style.display = 'block';
+            var context = canvas.getContext('2d');
+            imageOptimizerService.flipCanvas(imgObj, canvas, $scope.vFlipM, $scope.hFlipM);
+            var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+
+            $scope.adjustImage(imgObj, imageData, context);
+
+            var fullQualityImage = canvas.toDataURL("image/jpeg", 1.0);
+
+            window.open(fullQualityImage,'Image','width=canvas.width,height=canvas.height,resizable=1');
         };
 
         $scope.processSliderChanges = function (data) {
@@ -284,7 +305,7 @@ angular.module("imageOptimizer", [])
         };
 
         $scope.redraw = function () {
-            $scope.adjustImage(imgObj);
+            $scope.createDisplayImage(imgObj);
         };
 
         function handleFileSelect(event) {

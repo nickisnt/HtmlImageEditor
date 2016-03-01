@@ -64,7 +64,7 @@
 }
 
 .imageOptimizationHideInputButton {
-    visibility: hidden;
+    display: none;
 }
 
 .imageOptimizationInputButton {
