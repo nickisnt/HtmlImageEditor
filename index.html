@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./styles/imageManipulate.css">
+        <script src="./libs/angular/angular.js"></script>
+        <script src="./libs/lodash.min.js"></script>
+        <script src="./directives/imageopt.directive.js"></script>
+    </head>
+    <body>
+        <div ng-app="mainApp">
+            <div image-area-dir></div>
+        </div>
+        <script>
+            angular.module("mainApp", ["imageOptimizer"]).controller("MyCtrl", function() {
+            });
+        </script>
+    </body>
+</html> 

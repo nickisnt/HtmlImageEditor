@@ -1,0 +1,73 @@
+
+.imageOptimizationToolbar{
+	float: left;
+	position: relative;
+	margin: 1rem;
+	width: 300px;
+    border: solid 1px lightgray;
+    padding: 8px 16px 16px 8px;
+}
+
+.sectionAlign{
+	height: 32px;
+}
+
+.inner-text {
+	float: left;
+	width: 110px;
+}
+
+.inner-control {
+	float: left;
+	width: 190px;
+}
+
+.inputAlign{
+	width: 190px;
+}
+
+.labelAlign{
+	margin-top: 1px;
+	margin-bottom: 1px;
+	float: right;
+    margin-right: 0.5rem;
+}
+
+.imageOptimizationImageArea {
+	margin: 1rem;
+	float: left;
+    border: solid 1px lightgray;
+}
+
+.imageOptimizationHistArea {
+	margin-bottom: 1rem;
+	margin-top: 1rem;
+	float: left;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	width: 264px;
+}
+
+.imageOptimizationHistoCanvas {
+	border-bottom: #D66666;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	padding-top: 0.5rem;
+	padding-bottom: 2px;
+	background: #f0f0f0;
+}
+
+.imageOptimizationCropArea{
+    border-style: dashed;
+}
+
+.imageOptimizationHideInputButton {
+    visibility: hidden;
+}
+
+.imageOptimizationInputButton {
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
