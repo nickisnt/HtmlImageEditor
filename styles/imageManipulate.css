@@ -49,13 +49,8 @@
 }
 
 .imageOptimizationHistoCanvas {
-	border-bottom: #D66666;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    padding-left: 0.5rem;
-	padding-right: 0.5rem;
-	padding-top: 0.5rem;
-	padding-bottom: 2px;
+	border-bottom: 1px solid #D66666;
+	padding: 0.5rem 0.5rem 2px 0.5rem;
 	background: #f0f0f0;
 }
 

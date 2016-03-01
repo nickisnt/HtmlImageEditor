@@ -8,9 +8,9 @@ angular.module("imageOptimizer", [])
                 scope.canvas.style.display = 'block';
                 imageElem.appendChild(scope.canvas);
                 var histElem = element[0].getElementsByClassName('imageOptimizationHistArea')[0];
-                scope.histoCanvas = document.createElement("canvas");
-                scope.histoCanvas.className = "imageOptimizationHistoCanvas";
-                histElem.appendChild(scope.histoCanvas);
+                scope.histogramCanvas = document.createElement("canvas");
+                scope.histogramCanvas.className = "imageOptimizationHistoCanvas";
+                histElem.appendChild(scope.histogramCanvas);
             }
         };
     })
@@ -31,51 +31,11 @@ angular.module("imageOptimizer", [])
             return data;
         };
 
-        this.getHistogramData = function (data) {
-            var grayVal;
-            var histogramData = new Array();
-            for (var i = 0; i < data.length; i += 4) {
-                grayVal = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
-                if (isNaN(histogramData[grayVal])) {
-                    histogramData[grayVal] = 1;
-                } else {
-                    histogramData[grayVal]++;
-                }
-            }
 
-            return histogramData;
-        };
-
-        this.getHistogramRedData = function (data) {
-            var red = 0;
-            return this._getColorHistogramData(data, red);
-        };
-
-        this.getHistogramGreenData = function (data) {
-            var green = 1;
-            return this._getColorHistogramData(data, green);
-        };
-
-        this.getHistogramBlueData = function (data) {
-            var blue = 2;
-            return this._getColorHistogramData(data, blue);
-        };
-
-        var _getColorHistogramData = function (data, colorInd) {
-            var histogramData = new Array();
-            for (var i = colorInd; i < data.length; i += 4) {
-                if (isNaN(histogramData[data[i]])) {
-                    histogramData[data[i]] = 1;
-                } else {
-                    histogramData[data[i]]++;
-                }
-            }
-            return histogramData;
-        };
 
         this.getHistogramDotData = function (data) {
             var grayVal;
-            var histogramDotData = new Array();
+            var histogramDotData = [];
             for (var i = 0; i < data.length; i += 4) {
                 grayVal = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
                 if (histogramDotData[grayVal] === undefined) {
@@ -150,6 +110,8 @@ angular.module("imageOptimizer", [])
             $scope.shadow = 0;
             $scope.highlight = 0;
             $scope.black = 0;
+            $scope.vFlipM = 0;
+            $scope.hFlipM = 0;
         };
 
         $scope.adjustImage = function (imageObj, imageData, context) {
@@ -248,15 +210,10 @@ angular.module("imageOptimizer", [])
 
         $scope.drawHistogram = function (data) {
             var height = parseInt(document.documentElement.clientHeight - 111);
-            var context = $scope.histoCanvas.getContext('2d');
-            var grayVal;
-            var histogramData = new Array();
-            var maxVal = 0;
-            var imageData;
-            var data;
-            var counter;
+            var context = $scope.histogramCanvas.getContext('2d');
+            var histogramData = [], maxVal = 0, grayVal, imageData, pixelGroupCounter, i, j;
 
-            for (var i = 0; i < data.length; i += 4) {
+            for (i = 0; i < data.length; i += 4) {
                 grayVal = parseInt(0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2]);
                 if (isNaN(histogramData[grayVal])) {
                     histogramData[grayVal] = 1;
@@ -269,27 +226,27 @@ angular.module("imageOptimizer", [])
                 }
             }
 
-            $scope.histoCanvas.height = height;
-            $scope.histoCanvas.width = histogramData.length;
+            $scope.histogramCanvas.height = height;
+            $scope.histogramCanvas.width = histogramData.length;
 
-            imageData = context.getImageData(0, 0, $scope.histoCanvas.width, height);
+            imageData = context.getImageData(0, 0, $scope.histogramCanvas.width, height);
             data = imageData.data;
-            counter = 0;
+            pixelGroupCounter = 0;
 
-            for (var i = 0; i < height; i++) {
-                for (var j = 0; j < histogramData.length; j++) {
+            for (i = 0; i < height; i++) {
+                for (j = 0; j < histogramData.length; j++) {
                     if ((histogramData[j] / maxVal) * height <= (height - i) || histogramData[j] === undefined) {
-                        data[counter] = 240;
-                        data[counter + 1] = 240;
-                        data[counter + 2] = 240;
-                        data[counter + 3] = 255;
+                        data[pixelGroupCounter] = 240;
+                        data[pixelGroupCounter + 1] = 240;
+                        data[pixelGroupCounter + 2] = 240;
+                        data[pixelGroupCounter + 3] = 255;
                     } else {
-                        data[counter] = 0;
-                        data[counter + 1] = 0;
-                        data[counter + 2] = 0;
-                        data[counter + 3] = 255;
+                        data[pixelGroupCounter] = 0;
+                        data[pixelGroupCounter + 1] = 0;
+                        data[pixelGroupCounter + 2] = 0;
+                        data[pixelGroupCounter + 3] = 255;
                     }
-                    counter += 4;
+                    pixelGroupCounter += 4;
                 }
             }
 

@@ -1,7 +1,7 @@
 <div ng-app="optApp">
     <div class="imageOptimizationToolbar" ng-controller="optCtrl">
         <div class="inner-text">
-            <button id="imageInputButton" class="labelAlign imageOptimizationInputButton" for="imageInput"
+            <button id="imageInputButton" class="labelAlign imageOptimizationInputButton"
                     onclick="document.getElementById('imageInputMasterButton').click()">Choose Image</button>
             <label class="labelAlign" for="bwCheck">Black & White</label>
             <label class="labelAlign" for="brightnessSlider">Brightness</label>
@@ -14,7 +14,7 @@
             <label class="labelAlign" for="whiteSlider">Detail</label>
         </div>
         <div class="inner-control">
-            <button id="saveImageButton" class="labelAlign imageOptimizationInputButton" for="imageInput"
+            <button id="saveImageButton" class="labelAlign imageOptimizationInputButton"
                     ng-click="createSaveImage()">Save Image</button>
             <input id="imageInputMasterButton" type="file" accept="image/*" class="imageOptimizationHideInputButton imageOptimizationInputButton"/>
             <input class="inputAlign" type="checkbox" id="bwCheck" ng-model="bwm" ng-change="redraw()"
@@ -35,6 +35,6 @@
                    ng-disabled="!optm"/>
         </div>
     </div>
-    <div visual-mouse-drag-dir class="imageOptimizationImageArea"></div>
+    <div class="imageOptimizationImageArea"></div>
     <div class="imageOptimizationHistArea"></div>
 </div>
