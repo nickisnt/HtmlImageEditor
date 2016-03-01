@@ -1,18 +1,17 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="./styles/imageManipulate.css">
+        <link rel="stylesheet" type="text/css" href="./styles/imageEditor.css">
         <script src="./libs/angular/angular.js"></script>
         <script src="./libs/lodash.min.js"></script>
-        <script src="./directives/imageopt.directive.js"></script>
+        <script src="./directives/imageEditor.directive.js"></script>
     </head>
     <body>
         <div ng-app="mainApp">
-            <div image-area-dir></div>
+            <div image-editor-directive></div>
         </div>
         <script>
-            angular.module("mainApp", ["imageOptimizer"]).controller("MyCtrl", function() {
-            });
+            angular.module("mainApp", ["HtmlImageEditor"]).controller("MyCtrl", function() {});
         </script>
     </body>
 </html> 
