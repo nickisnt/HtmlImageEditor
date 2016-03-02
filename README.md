@@ -2,6 +2,7 @@
 TL;DR: HTML/AngularJS/Javascript Based Image Editor allowing basic editing such as adjusting shadows, highlights, flipping, rotating and other functionality.
 
 Author: Nicholas Arent
+
 Date: 2016
 
 The goal behind this application is to bring basic image/photo editing to the web and done purely in HTML/AngularJS/Javascript. Currently most powerful editors are written as flash apps. I desire to do the same in HTML.
