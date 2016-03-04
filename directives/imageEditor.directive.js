@@ -1,3 +1,9 @@
+/**
+ * Html Image Editor Directive
+ *
+ * Author: Nicholas Arent
+ * Date: 2016
+ */
 angular.module("HtmlImageEditor", [])
     .directive("imageEditorDirective", function() {
         return {
@@ -15,6 +21,19 @@ angular.module("HtmlImageEditor", [])
         };
     })
     .service("imageEditorService", function () {
+        /**
+         * This is mostly used for simple images like snapshots of a whiteboard. It willincrease the
+         * contrast of the image to make whiteboard snapshots less "muddy" looking.
+         *
+         * Data is canvas.getContext('2d').getImageData
+         *
+         * Whitepoint should be a value less than 255. Any pixel values above whitepoint will be
+         * set to white.
+         *
+         * @param data
+         * @param whitePoint
+         * @returns {*}
+         */
         this.optimizeData = function (data, whitePoint) {
             var grayVal;
             for (var i = 0; i < data.length; i += 4) {
@@ -32,7 +51,13 @@ angular.module("HtmlImageEditor", [])
         };
 
 
-
+        /**
+         * Returns a dot representation of the image's histogram.
+         * Data is canvas.getContext('2d').getImageData
+         *
+         * @param data
+         * @returns {Array}
+         */
         this.getHistogramDotData = function (data) {
             var grayVal;
             var histogramDotData = [];
@@ -48,6 +73,24 @@ angular.module("HtmlImageEditor", [])
             return histogramDotData;
         };
 
+        /**
+         * Flips the canvas vertically or horizontally depending on the boolean values of
+         * bVertical and bHorizontal.
+         *
+         * originalImage is of type Image
+         *
+         * canvas is an HTML5 Canvas object
+         *
+         * bVertical is boolean true to flip image on the vertical axis
+         *
+         * bHorizontal is boolean true to flip image on the horizontal axis
+         *
+         * @param originalImage
+         * @param canvas
+         * @param bVertical
+         * @param bHorizontal
+         * @returns {*}
+         */
         this.flipCanvas = function (originalImage, canvas, bVertical, bHorizontal) {
             var context = canvas.getContext("2d");
             var x = 0;
@@ -74,6 +117,14 @@ angular.module("HtmlImageEditor", [])
     .controller("imageEditorCtrl", function ($scope, imageEditorService){
         var imgObj = new Image();
 
+        /**
+         * Initial draw of the target image to the screen with default set values. Also
+         * draws the histogram for the image data.
+         *
+         * imageObj is of type Image
+         *
+         * @param imageObj
+         */
         $scope.drawImage = function (imageObj) {
             var dimension = parseInt(document.documentElement.clientHeight - 100);
             var maxWidth = parseInt(document.documentElement.clientWidth - 622);
@@ -114,6 +165,19 @@ angular.module("HtmlImageEditor", [])
             $scope.hFlipM = 0;
         };
 
+        /**
+         * Is responsible for adjusting the target image based on the image edit slider values.
+         *
+         * imageObj is of type Image
+         *
+         * imageData is canvas.getContext('2d').getImageData
+         *
+         * context is canvas.getContext('2d')
+         *
+         * @param imageObj
+         * @param imageData
+         * @param context
+         */
         $scope.adjustImage = function (imageObj, imageData, context) {
             var whitePoint = _.parseInt($scope.white);
 
@@ -128,6 +192,14 @@ angular.module("HtmlImageEditor", [])
             context.putImageData(imageData, 0, 0);
         };
 
+        /**
+         * Creates the low resolution preview image displayed in the editor based on
+         * the editor slider values.
+         *
+         * imageObj is of type Image
+         *
+         * @param imageObj
+         */
         $scope.createDisplayImage = function (imageObj) {
             var context = $scope.canvas.getContext('2d');
             imageEditorService.flipCanvas(imageObj, $scope.canvas, $scope.vFlipM, $scope.hFlipM);
@@ -136,6 +208,10 @@ angular.module("HtmlImageEditor", [])
             $scope.adjustImage(imageObj, imageData, context);
         };
 
+        /**
+         * Creates the original resolution image for saving based on
+         * the editor slider values.
+         */
         $scope.createSaveImage = function () {
             var canvas = document.createElement("canvas");
             canvas.width = imgObj.width;
@@ -152,6 +228,14 @@ angular.module("HtmlImageEditor", [])
             window.open(fullQualityImage,'Image','width=canvas.width,height=canvas.height,resizable=1');
         };
 
+        /**
+         * Modifies the raw image data based on the editor slider values.
+         * This will iterate through every pixel of the image to make the adjustments.
+         *
+         * data is canvas.getContext('2d').getImageData
+         *
+         * @param data
+         */
         $scope.processSliderChanges = function (data) {
             var brighter = _.parseInt($scope.brightness);
             var shadows = _.parseInt($scope.shadow);
@@ -208,6 +292,14 @@ angular.module("HtmlImageEditor", [])
             }
         };
 
+        /**
+         * Calculates histogram values from the image data and creates a canvas drawn graph representation
+         * of the histogram data.
+         *
+         * data is canvas.getContext('2d').getImageData
+         *
+         * @param data
+         */
         $scope.drawHistogram = function (data) {
             var height = parseInt(document.documentElement.clientHeight - 111);
             var context = $scope.histogramCanvas.getContext('2d');
@@ -253,6 +345,14 @@ angular.module("HtmlImageEditor", [])
             context.putImageData(imageData, 0, 0);
         };
 
+        /**
+         * Calculates the images histogram data and prints it to the console as
+         * a dot graph.
+         *
+         * data is canvas.getContext('2d').getImageData
+         *
+         * @param data
+         */
         $scope.printHistogramDotData = function (data) {
             var dotData = imageEditorService.getHistogramDotData(data);
 
@@ -261,10 +361,20 @@ angular.module("HtmlImageEditor", [])
             });
         };
 
+        /**
+         * Called after each slider change. Updates the preview image and histogram based on
+         * slider changes.
+         *
+         */
         $scope.redraw = function () {
             $scope.createDisplayImage(imgObj);
         };
 
+        /**
+         * Handler for file selection button.
+         *
+         * @param event
+         */
         function handleFileSelect(event) {
             var files = event.target.files;
             var reader = new FileReader();
@@ -278,6 +388,11 @@ angular.module("HtmlImageEditor", [])
             }
         }
 
+        /**
+         * Handler for FileReader object when image is selected and read in.
+         *
+         * @param event
+         */
         function fileOnLoad (event) {
             if(event.target.result) {
                 imgObj.onload = function () {
@@ -288,5 +403,6 @@ angular.module("HtmlImageEditor", [])
             }
         }
 
+        //Attach handler to file select button
         document.getElementById('imageInputMasterButton').addEventListener('change', handleFileSelect, false);
     });
