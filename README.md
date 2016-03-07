@@ -46,13 +46,13 @@ See the index.js file for an example of integrating this directive into an appli
 
 Build and Run
 
-To install the dependencies:
+Install the dependencies:
 npm install
 
-To Run the server:
+Run the server:
 grunt server
 
-To Navigate to the application:
+Navigate to the application:
 http://localhost:3000/index.html
 
 ----------------------------------------
