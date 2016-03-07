@@ -12,6 +12,10 @@ This is the start and hopefully it can grow into a full application. I am also a
 
 Dependencies:
 
+Npm
+
+Grunt
+
 AngularJS (Latest version 1 release, tested with 1.5)
 
 Lodash (Latest version, tested with 4.6)
@@ -37,6 +41,19 @@ Current Supported Functionality:
 ----------------------------------------
 
 See the index.js file for an example of integrating this directive into an application.
+
+----------------------------------------
+
+Build and Run
+
+To install the dependencies:
+npm install
+
+To Run the server:
+grunt server
+
+To Navigate to the application:
+http://localhost:3000/index.html
 
 ----------------------------------------
 

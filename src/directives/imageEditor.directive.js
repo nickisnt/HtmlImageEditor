@@ -7,7 +7,7 @@
 angular.module("HtmlImageEditor", [])
     .directive("imageEditorDirective", function() {
         return {
-            templateUrl: '/HtmlImageEditor/directives/imageEditor.html',
+            templateUrl: '/directives/imageEditor.html',
             link: function(scope, element) {
                 var imageElem = element[0].getElementsByClassName('imageEditorImageArea')[0];
                 scope.canvas = document.createElement("canvas");
@@ -251,23 +251,23 @@ angular.module("HtmlImageEditor", [])
                 if (bwVal < 25) {
                     blackFactor = blacks * (bwVal / 255);
                 } else if (bwVal < 50) {
-                    blackFactor = blacks * ((bwVal * 0.95) / 255);//5
+                    blackFactor = blacks * ((bwVal * 0.95) / 255);
                 } else if (bwVal < 75) {
-                    blackFactor = blacks * ((bwVal * 0.88) / 255);//7 + 2
+                    blackFactor = blacks * ((bwVal * 0.88) / 255);
                 } else if (bwVal < 100) {
-                    blackFactor = blacks * ((bwVal * 0.77) / 255);//11 + 4
+                    blackFactor = blacks * ((bwVal * 0.77) / 255);
                 } else if (bwVal < 125) {
-                    blackFactor = blacks * ((bwVal * 0.60) / 255);//17 + 8
+                    blackFactor = blacks * ((bwVal * 0.60) / 255);
                 } else if (bwVal < 150) {
-                    blackFactor = blacks * ((bwVal * 0.44) / 255);// 25 +12
+                    blackFactor = blacks * ((bwVal * 0.44) / 255);
                 } else if (bwVal < 175) {
-                    blackFactor = blacks * ((bwVal * 0.3) / 255);// 37+16
+                    blackFactor = blacks * ((bwVal * 0.3) / 255);
                 } else if (bwVal < 200) {
-                    blackFactor = blacks * ((bwVal * 0.2) / 255);// 53 + 20
+                    blackFactor = blacks * ((bwVal * 0.2) / 255);
                 } else if (bwVal < 225) {
-                    blackFactor = blacks * ((bwVal * 0.1) / 255);// 73 + 24
+                    blackFactor = blacks * ((bwVal * 0.1) / 255);
                 } else if (bwVal < 250) {
-                    blackFactor = blacks * ((bwVal * 0.05) / 255);// 97
+                    blackFactor = blacks * ((bwVal * 0.05) / 255);
                 } else {
                     blackFactor = 0;
                 }
