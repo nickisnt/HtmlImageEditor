@@ -1,3 +1,7 @@
+.imageEditorLayout{
+    display: flex;
+    align-content: center;
+}
 
 .imageEditorToolbar{
 	float: left;

@@ -303,12 +303,12 @@ angular.module("HtmlImageEditor", [])
         $scope.drawHistogram = function (data) {
             var height = parseInt(document.documentElement.clientHeight - 111);
             var context = $scope.histogramCanvas.getContext('2d');
-            var histogramData = [], maxVal = 0, grayVal, imageData, pixelGroupCounter, i, j;
+            var histogramData = newHistogramArray(), maxVal = 0, grayVal, imageData, pixelGroupCounter, i, j;
 
             for (i = 0; i < data.length; i += 4) {
                 grayVal = parseInt(0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2]);
                 if (isNaN(histogramData[grayVal])) {
-                    histogramData[grayVal] = 1;
+                    histogramData[grayVal] = 0;
                 } else {
                     histogramData[grayVal]++;
                 }
@@ -344,6 +344,14 @@ angular.module("HtmlImageEditor", [])
 
             context.putImageData(imageData, 0, 0);
         };
+
+        function newHistogramArray() {
+            var array = [];
+            for (var i = 0; i < 255; i++) {
+                array[i] = 0;
+            }
+            return array;
+        }
 
         /**
          * Calculates the images histogram data and prints it to the console as
