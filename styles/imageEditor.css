@@ -1,57 +1,61 @@
+.imageEditorLayout{
+    display: flex;
+    align-content: center;
+}
 
 .imageEditorToolbar{
-	float: left;
-	position: relative;
-	margin: 1rem;
-	width: 300px;
+    float: left;
+    position: relative;
+    margin: 1rem;
+    width: 300px;
     border: solid 1px lightgray;
     padding: 8px 16px 16px 8px;
 }
 
 .sectionAlign{
-	height: 32px;
+    height: 32px;
 }
 
 .inner-text {
-	float: left;
-	width: 110px;
+    float: left;
+    width: 110px;
 }
 
 .inner-control {
-	float: left;
-	width: 190px;
+    float: left;
+    width: 190px;
 }
 
 .inputAlign{
-	width: 190px;
+    width: 190px;
 }
 
 .labelAlign{
-	margin-top: 1px;
-	margin-bottom: 1px;
-	float: right;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    float: right;
     margin-right: 0.5rem;
 }
 
 .imageEditorImageArea {
-	margin: 1rem;
-	float: left;
+    margin: 1rem;
+    float: left;
     border: solid 1px lightgray;
 }
 
 .imageEditorHistogramArea {
-	margin-bottom: 1rem;
-	margin-top: 1rem;
-	float: left;
-	padding-left: 0.5rem;
-	padding-right: 0.5rem;
-	width: 264px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    float: left;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: 264px;
 }
 
 .imageEditorHistogramCanvas {
-	border-bottom: 1px solid #D66666;
-	padding: 0.5rem 0.5rem 2px 0.5rem;
-	background: #f0f0f0;
+    border-bottom: 1px solid #D66666;
+    padding: 0.5rem 0.5rem 2px 0.5rem;
+    background: #f0f0f0;
 }
 
 .imageEditorCropArea{

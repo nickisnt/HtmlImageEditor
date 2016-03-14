@@ -1,4 +1,4 @@
-<div ng-app="imageEditorApp">
+<div ng-app="imageEditorApp" class="imageEditorLayout">
     <div class="imageEditorToolbar" ng-controller="imageEditorCtrl">
         <div class="inner-text">
             <button id="imageInputButton" class="labelAlign imageEditorInputButton"
@@ -16,7 +16,8 @@
         <div class="inner-control">
             <button id="saveImageButton" class="labelAlign imageEditorInputButton"
                     ng-click="createSaveImage()">Save Image</button>
-            <input id="imageInputMasterButton" type="file" accept="image/*" class="imageEditorHideInputButton imageEditorInputButton"/>
+            <input id="imageInputMasterButton" type="file" accept="image/*" class="imageEditorHideInputButton imageEditorInputButton"
+                   onchange="angular.element(this).scope().handleFileSelect(this)"/>
             <input class="inputAlign" type="checkbox" id="bwCheck" ng-model="bwm" ng-change="redraw()"
                    ng-disabled="optm"/>
             <input class="inputAlign" type="range" id="brightnessSlider" value="0" min="-100" max="100"
