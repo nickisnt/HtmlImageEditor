@@ -345,6 +345,11 @@ angular.module("HtmlImageEditor", [])
             context.putImageData(imageData, 0, 0);
         };
 
+        /**
+         * Create propery sized array object for the histogram data and return it.
+         *
+         * @returns {Array}
+         */
         function newHistogramArray() {
             var array = [];
             for (var i = 0; i < 255; i++) {
@@ -380,21 +385,23 @@ angular.module("HtmlImageEditor", [])
 
         /**
          * Handler for file selection button.
+         * Element is the html input of type file
          *
-         * @param event
+         * @param element
          */
-        function handleFileSelect(event) {
-            var files = event.target.files;
-            var reader = new FileReader();
+        $scope.handleFileSelect = function (element) {
+            var files, reader;
 
-            if(event.target && event.target.files) {
+            if(element && element.files) {
+                files = element.files;
+                reader = new FileReader();
                 // process all File objects
                 for(var i = 0; i < files.length; i++){
                     reader.onload = fileOnLoad;
                     reader.readAsDataURL(files[i]);
                 }
             }
-        }
+        };
 
         /**
          * Handler for FileReader object when image is selected and read in.
@@ -410,7 +417,4 @@ angular.module("HtmlImageEditor", [])
                 imgObj.src = event.target.result;
             }
         }
-
-        //Attach handler to file select button
-        document.getElementById('imageInputMasterButton').addEventListener('change', handleFileSelect, false);
     });
